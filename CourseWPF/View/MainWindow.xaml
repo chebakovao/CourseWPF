@@ -1,0 +1,165 @@
+﻿<Window x:Class="CourseWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:CourseWPF"
+        mc:Ignorable="d"
+        Icon="\CourseWPF\event.png"
+        Title="Planner" Height="600" Width="800" ResizeMode="NoResize">
+        <Window.Resources>
+        <Style TargetType="TabItem">
+            <Setter Property="Foreground" Value="DimGray" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="DemiBold"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="DimGray" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Background" Value="#4CAF50" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="0,10,0,0" />
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="#FAFAFA" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Foreground" Value="DarkBlue"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="SelectionMode" Value="Multiple" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+        <Style TargetType="xctk:DateTimePicker">
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <TabControl>
+            <TabItem Header="Organization" Width="100px" Height="30">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="155*"/>
+                        <ColumnDefinition Width="639*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <Label Content="Введите название:" FontWeight="Bold"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding NewOrganizationName, UpdateSourceTrigger=PropertyChanged}" Width="142" Height="24" FontSize="15" MaxLength="18"/>
+                        <Button Content="Add" Height="33" Width="100" Margin="0,30,0,0" Background="DarkSeaGreen" FontWeight="Bold" Command="{Binding AddCommandO}" Cursor="Hand"/>
+                        <Button Content="Delete" Height="33" Width="100" Margin="0,15,0,0" Background="LightPink" FontWeight="Bold" Command="{Binding DelCommandO}" Cursor="Hand"/>
+                    </StackPanel>
+                    <ListView Grid.Column="1" ItemsSource="{Binding Organizations}" SelectedItem="{Binding SelectedOrganization}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding OrganizationId, UpdateSourceTrigger=PropertyChanged}"/>
+                                <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding OrganizationName, UpdateSourceTrigger=PropertyChanged}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Members" Width="100px" Height="30">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="165*"/>
+                        <ColumnDefinition Width="629*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <Label Content="Введите имя:" FontWeight="Bold"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding NewMemberName, UpdateSourceTrigger=PropertyChanged}" Width="142" Height="24" FontSize="15" MaxLength="18"/>
+                        <Label Content="Выберите организацию:"  Margin="0,20,0,0" FontWeight="Bold"/>
+                        <ComboBox Background="white" ItemsSource="{Binding Organizations, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="OrganizationName" SelectedItem="{Binding NewMemberOrganization}"/>
+                        <Button Content="Add" Height="33" Width="100" Margin="0,30,0,0" Background="DarkSeaGreen" FontWeight="Bold" Command="{Binding AddCommandM}" Cursor="Hand"/>
+                        <Button Content="Delete" Height="33" Width="100" Margin="0,15,0,0" Background="LightPink" FontWeight="Bold" Command="{Binding DelCommandM}" Cursor="Hand"/>
+                    </StackPanel>
+                    <ListView Grid.Column="1" ItemsSource="{Binding FilteredMembers, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedMember}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding MemberId, UpdateSourceTrigger=PropertyChanged}"/>
+                                <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding MemberName, UpdateSourceTrigger=PropertyChanged}"/>
+                                <GridViewColumn Header="Organization" Width="100" DisplayMemberBinding="{Binding MemberOrganization, UpdateSourceTrigger=PropertyChanged}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Events" Width="100px" Height="30">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="193*"/>
+                        <ColumnDefinition Width="601*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <Label Content="Введите имя события:"  FontWeight="Bold"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding NewEventName, UpdateSourceTrigger=PropertyChanged}" Width="142" Height="24" FontSize="15" MaxLength="18"/>
+                        <Label Content="Выберите организацию:"  Margin="0,20,0,0" FontWeight="Bold"/>
+                        <ComboBox Background="white" FontSize="13" ItemsSource="{Binding Organizations, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="OrganizationName" SelectedItem="{Binding NewEventOrganization}"/>
+                        <Label Content="Выберите участников:" Margin="0,20,0,0" FontWeight="Bold"/>
+                        <ListBox Height="100" ItemsSource="{Binding NewEventMembers, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="MemberName" SelectionMode="Multiple" SelectedItem="{Binding SelectedNewEventMember}"/>
+                        <Label Content="Выберите дату:" FontWeight="Bold"/>
+                        <xctk:DateTimePicker Value="{Binding NewEventDate}" Format="Custom" FormatString="yyyy-MM-dd HH:mm:ss" Width="170" Height="25" FontSize="13"/>
+                        <Button Content="Add" Height="33" Width="100" Margin="0,30,0,0" Background="DarkSeaGreen" FontWeight="Bold" Command="{Binding AddCommandE}" Cursor="Hand"/>
+                        <Button Content="Delete" Height="33" Width="100" Margin="0,15,0,0" Background="LightPink" FontWeight="Bold" Command="{Binding DelCommandE}" Cursor="Hand"/>
+                    </StackPanel>
+                    <ListView Grid.Column="1" ItemsSource="{Binding FilteredEvents, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedEvent}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding EventId, UpdateSourceTrigger=PropertyChanged}"/>
+                                <GridViewColumn Header="Event Name" Width="100" DisplayMemberBinding="{Binding EventName, UpdateSourceTrigger=PropertyChanged}"/>
+                                <GridViewColumn Header="Organization" Width="100" DisplayMemberBinding="{Binding EventOrganization, UpdateSourceTrigger=PropertyChanged}"/>
+                                <GridViewColumn Header="Members" Width="150" DisplayMemberBinding="{Binding EventMember, UpdateSourceTrigger=PropertyChanged}"/>
+                                <GridViewColumn Header="Date" Width="160" DisplayMemberBinding="{Binding EventDate, UpdateSourceTrigger=PropertyChanged}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
