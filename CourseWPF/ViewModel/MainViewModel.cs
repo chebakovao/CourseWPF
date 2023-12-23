@@ -6,7 +6,6 @@ using System.Media;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using Telegram.Bot;
 using CourseWPF.Model;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
